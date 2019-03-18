@@ -2,10 +2,7 @@ package com.weng.generator.master;
 
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-import com.baomidou.mybatisplus.generator.config.GlobalConfig;
-import com.baomidou.mybatisplus.generator.config.PackageConfig;
-import com.baomidou.mybatisplus.generator.config.StrategyConfig;
+import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import util.PropertiesUtil;
@@ -32,7 +29,7 @@ public class GeneratorClient {
         config.setXmlName("%sMapper");
         config.setServiceName("%sService");
         config.setServiceImplName("%sServiceImpl");
-        config.setControllerName("%sController");
+        //config.setControllerName("%sController");
         autoGenerator.setGlobalConfig(config);
 
         // 数据源配置
@@ -76,12 +73,12 @@ public class GeneratorClient {
         // 包配置
         PackageConfig packageConfig = new PackageConfig();
         packageConfig.setParent(PropertiesUtil.getValue("mp.parent"));
-        packageConfig.setController(PropertiesUtil.getValue("mp.controllerName"));
+        //packageConfig.setController(PropertiesUtil.getValue("mp.controllerName"));
         packageConfig.setEntity(PropertiesUtil.getValue("mp.entityName"));
         packageConfig.setService(PropertiesUtil.getValue("mp.serviceName"));
         packageConfig.setServiceImpl(PropertiesUtil.getValue("mp.serviceImplName"));
         packageConfig.setMapper(PropertiesUtil.getValue("mp.mapperName"));
-        packageConfig.setXml(PropertiesUtil.getValue("mp.mapperXmlName"));
+        //packageConfig.setXml(PropertiesUtil.getValue("mp.mapperXmlName"));
 //        packageConfig.setModuleName("base");
         autoGenerator.setPackageInfo(packageConfig);
 
@@ -95,7 +92,14 @@ public class GeneratorClient {
             }
         };
         autoGenerator.setCfg(injectionConfig);
-
+        // 关闭默认 xml 生成，调整生成 至 根目录
+        TemplateConfig tc = new TemplateConfig();
+        tc.setXml(null);
+        tc.setEntity("./template/my.entity.java.vm");
+        tc.setMapper("./template/mapper.java.vm");
+        tc.setService("./template/service.java.vm");
+        tc.setServiceImpl("./template/serviceImpl.java.vm");
+        autoGenerator.setTemplate(tc);
         // 执行生成
         autoGenerator.execute();
         // 打印注入设置
