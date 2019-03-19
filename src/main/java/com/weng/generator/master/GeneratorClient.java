@@ -1,5 +1,6 @@
 package com.weng.generator.master;
 
+import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
@@ -18,12 +19,12 @@ public class GeneratorClient {
         //项目路径
         config.setOutputDir(PropertiesUtil.getValue("project.path") +"\\src\\main\\java");
         config.setFileOverride(true);
-        config.setActiveRecord(true);
+        config.setActiveRecord(false);
         config.setEnableCache(false);// XML 二级缓存
         config.setBaseResultMap(true);// XML ResultMap
-        config.setBaseColumnList(false);// XML columList
+        config.setBaseColumnList(true);// XML columList
         config.setAuthor("Gaby");
-
+        config.setIdType(IdType.AUTO);
         // 自定义文件命名，注意 %s 会自动填充表实体属性！
         config.setMapperName("%sMapper");
         config.setXmlName("%sMapper");
@@ -88,6 +89,7 @@ public class GeneratorClient {
             public void initMap() {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("maxbill", this.getConfig().getGlobalConfig().getAuthor() + "-MybatisPlus");
+                map.put("author", this.getConfig().getGlobalConfig().getAuthor());
                 this.setMap(map);
             }
         };
