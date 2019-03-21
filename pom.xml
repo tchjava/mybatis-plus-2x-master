@@ -59,6 +59,20 @@
             <version>1.7</version>
         </dependency>
     </dependencies>
-
+    <build>
+        <!-- 不拦截xml -->
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+    </build>
 
 </project>
